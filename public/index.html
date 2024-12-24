@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>SongsYT | Music Player</title>
+    <meta name="description" content="Enjoy any music videos from YouTube, have fun.">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2bfa555d4b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon Link -->
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+
+</head>
+<body>
+
+    <!-- Banner Section -->
+    <div id="banner" class="banner">
+        <h1>Welcome to SongsYT</h1>
+        <p>Enjoy the best music experience with our MP3 player</p>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for songs...">
+        <button id="searchBtn">Search</button>
+    </div>
+
+    <section id="trending-section">
+        <h2>Trending Music Videos</h2>
+        <div id="trending">
+            <div id="trending-videos" class="trending-videos"></div>
+        </div>
+    </section>
+    
+
+    <div id="results"></div>
+
+    <!-- Fixed audio player at the bottom -->
+    <div id="player" class="player">
+        <div class="album-info">
+            <img id="albumArt" src="https://via.placeholder.com/50" alt="Album Art">
+            <div>
+                <h4 id="songTitle">Song Title</h4>
+                <p id="artistName">Artist Name</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prevButton"><i class="fa-solid fa-backward"></i></button>
+            <button id="playPauseButton"><i class="fa-solid fa-play"></i></button>
+            <button id="nextButton"><i class="fa-solid fa-forward"></i></button>
+        </div>
+
+        <div class="progress-bar" onclick="seek(event)">
+            <div class="progress" id="progress"></div>
+        </div>
+        <button id="fullscreenBtn" class="fullscreen-btn"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+
+        <div class="time">
+            <span id="currentTime">0:00</span> / <span id="duration">3:00</span>
+        </div>
+
+        <div class="volume">
+            <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+        </div>
+
+        <button id="downloadButton" class="download-btn" style="display:none;">Download MP3</button>
+    </div>
+
+    <script src="audioPlayer.js"></script>
+
+    <!-- <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();  // Disable right-click menu
+        });
+    </script>
+    <script>
+        // Disable F12, Ctrl+Shift+I, and similar keyboard shortcuts
+        document.addEventListener("keydown", function (e) {
+            // Block F12
+            if (e.keyCode == 123) {
+                e.preventDefault();
+            }
+            // Block Ctrl+Shift+I (Windows/Linux)
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+                e.preventDefault();
+            }
+            // Block Cmd+Option+I (MacOS)
+            if (e.metaKey && e.altKey && e.keyCode == 73) {
+                e.preventDefault();
+            }
+        });
+    </script> -->
+</body>
+</html>
