@@ -37,6 +37,33 @@ class AudioPlayer {
         document.getElementById('songTitle').textContent = song.title;
         document.getElementById('artistName').textContent = song.artist;
         document.getElementById('albumArt').src = song.artwork;
+        
+        // Update player background to album art with blur and dark overlay
+        const player = document.getElementById('player');
+        player.style.backgroundImage = `url(${song.artwork}), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`;
+        player.style.backgroundSize = 'cover'; // Ensure the image covers the entire player
+        player.style.backgroundPosition = 'center'; // Center the image
+        player.style.backgroundRepeat = 'no-repeat'; // Prevent image repetition
+        player.style.filter = 'none'; // Remove blur from the whole player
+
+        // Add a div overlay for the blur effect
+        const overlay = document.createElement('div');
+        overlay.style.position = 'absolute';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundImage = `url(${song.artwork})`;
+        overlay.style.backgroundSize = 'cover';
+        overlay.style.backgroundPosition = 'center';
+        overlay.style.filter = 'blur(5px)'; // Apply blur to the image itself
+        overlay.style.zIndex = '-1'; // Ensure the overlay is behind the content
+
+        // Append the overlay to the player
+        player.appendChild(overlay);
+
+        // Set a transition for smoother background change
+        player.style.transition = 'background-image 0.5s ease';
 
         // Fetch MP3 URL using YouTube ID
         const mp3Url = await this.fetchMp3Url(song.youtubeId);
@@ -254,3 +281,5 @@ document.addEventListener('fullscreenchange', function() {
         player.classList.remove('fullscreen');
     }
 });
+
+

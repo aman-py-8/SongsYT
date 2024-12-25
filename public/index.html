@@ -45,28 +45,33 @@
                 <p id="artistName">Artist Name</p>
             </div>
         </div>
-
+    
+        <!-- Time Display: Positioned above the progress bar -->
+        <div class="time">
+            <span id="currentTime">0:00</span> / <span id="duration">3:00</span>
+        </div>
+    
         <div class="controls">
             <button id="prevButton"><i class="fa-solid fa-backward"></i></button>
             <button id="playPauseButton"><i class="fa-solid fa-play"></i></button>
             <button id="nextButton"><i class="fa-solid fa-forward"></i></button>
         </div>
-
+    
+        <!-- Progress Bar -->
         <div class="progress-bar" onclick="seek(event)">
             <div class="progress" id="progress"></div>
         </div>
+    
         <button id="fullscreenBtn" class="fullscreen-btn"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
-
-        <div class="time">
-            <span id="currentTime">0:00</span> / <span id="duration">3:00</span>
-        </div>
-
+    
         <div class="volume">
+            <i class="fa-solid fa-volume-high"></i>
             <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
         </div>
-
+    
         <button id="downloadButton" class="download-btn" style="display:none;">Download MP3</button>
     </div>
+    
 
     <script src="audioPlayer.js"></script>
 

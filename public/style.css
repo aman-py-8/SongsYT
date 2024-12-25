@@ -1,4 +1,4 @@
-/* Banner Styles */
+/* Banner Styles */ 
 #banner {
     background-color: #1db954; /* Spotify Green */
     color: white;
@@ -155,7 +155,9 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    max-width: 200px; /* Ensures text doesn't exceed the container width */
 }
+
 
 .album-info p {
     margin: 0;
@@ -205,10 +207,21 @@ body {
     color: #e1e1e1;
     display: flex;
     gap: 5px;
+    justify-content: center;
+}
+
+.progress-time {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: white;
+    z-index: 1;
 }
 
 .volume input {
-    accent-color: #1db954;
+    accent-color: #f8f8f8;
 }
 
 .download-btn {
@@ -334,8 +347,6 @@ h2 {
     #player.fullscreen .progress-bar {
         width: 90%; /* Adjust width of the progress bar */
         margin-top: 50px; /* Reduce top margin */
-        
-        height: 4px; /* Adjust thickness */
         height: 4px; /* Adjust thickness */
         background-color: #444;
         order: 2; /* Ensure progress bar is above controls */
@@ -395,11 +406,28 @@ h2 {
 
 /* For smaller screens (Mobile devices) */
 @media (max-width: 480px) {
+    #player {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
     #player.fullscreen .album-info img {
         width: 350px; /* Make album art larger on very small screens */
         height: 350px; /* Maintain aspect ratio */
     }
 
+    /* Time display inside the progress bar */
+    /* Time display inside the progress bar */
+    #player.fullscreen .progress-time {
+        order: 2;
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+        color: white;
+    }
     #player.fullscreen .progress-bar {
         height: 3px; /* Make progress bar thinner */
     }
@@ -410,39 +438,6 @@ h2 {
     }
 
     .song {
-        width: 90px; /* Adjust song card width for small screens */
-    }
-
-    #searchInput {
-        width: 90%; /* Make search input more mobile-friendly */
-    }
-}
-
-/* For very large screens (desktops and large tablets) */
-@media (min-width: 1024px) {
-    #player.fullscreen {
-        padding: 30px 40px; /* Add more padding for larger screens */
-        height: 90vh; /* Adjust for larger screen space */
-        justify-content: space-between;
-    }
-
-    #player.fullscreen .album-info {
-        flex-direction: row; /* Place image and text side by side */
-        justify-content: space-between; /* Spread out the album art and song info */
-        margin-bottom: 30px; /* Increase spacing */
-    }
-
-    #player.fullscreen .album-info img {
-        width: 200px; /* Set a fixed width for album art */
-        height: 200px; /* Set a fixed height for album art */
-        margin-right: 20px; /* Space between album art and text */
-    }
-
-    #player.fullscreen .controls button {
-        font-size: 35px; /* Larger button size for easier interaction */
-    }
-
-    #player.fullscreen .volume input {
-        width: 50%; /* Adjust volume control width for larger screens */
+        width: 90px; /* Adjust song card width for small devices */
     }
 }
