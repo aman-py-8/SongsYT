@@ -1,0 +1,278 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px; /* Fixed width for the modal */
+    max-height: 30vh; /* Set a maximum height for the modal */
+}
+
+.modal-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Allows scrolling if the content overflows */
+    max-height: 70vh; /* Ensure content doesn't overflow the modal */
+    display: grid;
+    
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-content ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.modal-content ul li button {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.exit-fullscreen-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff3b3b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.exit-fullscreen-btn.hidden {
+    display: none !important; /* Ensure the button is hidden in all contexts */
+}
+
+
+/* Playlist container styles */
+#playlist-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.playlist-card {
+    width: 200px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for playlist card */
+.playlist-card:hover {
+    transform: translateY(-5px);  /* Slightly lift the card */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);  /* Make the shadow more prominent */
+}
+
+/* Optional: hover effect on the image */
+.playlist-card:hover img {
+    opacity: 0.9;  /* Slightly darken the image on hover */
+}
+
+.playlist-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.playlist-info h4 {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Song container styles */
+#song-container {
+    margin-top: 20px;
+    padding: 10px;
+    margin-bottom: 150px;
+}
+
+.song-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    position: relative; /* Allows positioning of the play button */
+    height: 60px; /* Set fixed height for the song card */
+}
+
+.song-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.song-info {
+    flex: 1;
+}
+
+.song-info h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.song-info p {
+    margin: 5px 0;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Play button positioned at the far right */
+.song-play-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #1db954;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.song-play-btn:hover {
+    background-color: #000000;
+}
+
+
+
+
+/* Playlist info styles */
+.playlist-info {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.playlist-info h2 {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.playlist-info img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+/* Back button styles */
+#back-btn {
+    margin-top: 20px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#back-btn:hover {
+    background-color: #303f9f;
+}
+
+.playlist-modal {
+    position: fixed;
+    bottom: var(--player-height);
+    right: 2rem; /* Add some space from right edge */
+    width: 350px;
+    max-height: 500px;
+    background: var(--background-dark);
+    border: 1px solid var(--background-light);
+    border-radius: 12px 12px 0 0;
+    color: var(--text-color);
+    overflow-y: auto;
+    z-index: 1001;
+    transition: all var(--transition-speed);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Close button styling */
+#close-modal-btn {
+    background-color: #ff4d4d; /* Red for a close button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#close-modal-btn:hover {
+    background-color: #e63939; /* Darker red on hover */
+}
+
+/* Playlist list styling */
+#playlist-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+#playlist-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Divider between items */
+    font-size: 0.9rem; /* Slightly smaller text */
+}
+
+#playlist-list li:last-child {
+    border-bottom: none; /* No border on the last item */
+}
+
+@media screen and (min-width: 769px) {
+    #playlist-modal {
+        padding: 30px; /* Extra padding for larger screens */
+    }
+}

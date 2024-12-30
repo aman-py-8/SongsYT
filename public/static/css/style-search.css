@@ -1,0 +1,236 @@
+/* search-component.css */
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.search-input-container {
+    position: relative;
+    width: 300px;
+}
+
+.search-bar input {
+    padding: 8px;
+    padding-right: 35px;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Search button styles */
+.search-btn {
+    padding: 8px 16px;
+    background-color: #6200ea;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #4b00b3;
+}
+
+/* Clear button styles */
+.clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.clear-btn:hover {
+    opacity: 1;
+}
+
+.clear-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.clear-btn:focus {
+    outline: none;
+}
+
+/* Suggestions styles */
+.suggestions {
+    position: absolute;
+    top: 60%;
+    left: 37%;
+    width: 300px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.suggestions li {
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.suggestions li:hover {
+    background-color: #f4f4f4;
+}
+
+/* Search results styles */
+.search-results {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 0 15px;
+    width: 100%;
+}
+
+.search-results div {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 180px;
+    min-width: 180px;
+}
+
+.search-results div:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.search-results img {
+    width: 50%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    object-fit: cover;
+}
+
+.search-results p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.search-results button {
+    background-color: #1db954;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+    width: 100%;
+    max-width: 180px;
+}
+
+.search-results button:hover {
+    background-color: rgb(9, 143, 56);
+    transform: scale(1.05);
+}
+
+.search-results button:active {
+    transform: scale(0.98);
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+    .suggestions {
+        left: 3%;
+        width: 100%;
+        position: absolute;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-results div {
+        max-width: 220px;
+        min-width: 150px;
+    }
+
+    .search-results button {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-results {
+        display: flex;
+        padding: 0;
+        gap: 0;
+    }
+
+    .search-results div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        max-width: none;
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ccc;
+    }
+
+    .search-results img {
+        width: 10%;
+        height: auto;
+        margin-right: 15px;
+        object-fit: cover;
+    }
+
+    .search-results p {
+        font-size: 16px;
+        margin: 0;
+        flex-grow: 1;
+    }
+
+    .search-results button {
+        margin-left: 10px;
+        width: auto;
+        max-width: 120px;
+    }
+}

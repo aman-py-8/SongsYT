@@ -1,0 +1,365 @@
+/* Variables for consistent theming */
+:root {
+    --primary-color: #1db954;
+    --text-color: #ffffff;
+    --background-dark: rgba(0, 0, 0, 0.9);
+    --background-light: rgba(255, 255, 255, 0.1);
+    --transition-speed: 0.3s;
+    --player-height: 100px;
+    --player-mobile-height: 80px;
+  }
+  
+  .player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: var(--player-height);
+    margin: 0;
+    padding: 0.5rem 2rem;
+    background: var(--background-dark);
+    color: var(--text-color);
+    transition: all var(--transition-speed);
+    overflow: hidden;
+    z-index: 1000;
+    border-radius: 0;
+    border-top: 1px solid var(--background-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Background effect with blur */
+  .player::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    background: rgba(0, 0, 0, 0.9);
+    filter: blur(20px);
+    opacity: 1;
+    z-index: -1;
+  }
+  
+  /* Player Info Section */
+  .player-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  
+  .player-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .player-info div {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .player-info h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+  }
+  
+  .player-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    padding-right: 20px;
+  }
+  
+  /* Controls Section */
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem; /* Increased general gap between controls */
+    margin-bottom: 0.5rem;
+    flex: 0 0 auto;
+  }
+  
+  .controls button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+
+  .controls button:hover {
+    transform: scale(1.1);
+    color: var(--primary-color);
+  }
+
+  #play-pause-btn {
+    font-size: 1.5rem; /* Larger than other buttons */
+    background: var(--primary-color);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 0;
+    color: var(--background-dark);
+    box-shadow: 0 2px 8px rgba(29, 185, 84, 0.3);
+  }
+  #play-pause-btn:hover {
+    transform: scale(1.1);
+    background: #1ed760; /* Slightly lighter green on hover */
+    box-shadow: 0 2px 12px rgba(29, 185, 84, 0.5);
+  }
+  /* Adjust spacing for secondary control buttons */
+    #prev-btn,
+    #next-btn {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    }
+    #repeat-btn,
+    #playlist-btn {
+    font-size: 1rem;
+    opacity: 0.8;
+    }
+  
+  /* Progress Bar */
+/* Progress Bar - Ensure visibility on desktop */
+.progress-container {
+    display: flex !important; /* Force display on all screen sizes */
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0 1rem;
+    width: calc(100% - 2rem); /* Account for padding */
+    position: relative;
+    z-index: 1;
+}
+  
+  #progress-bar {
+    flex: 1;
+    height: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: var(--background-light);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  #progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  #progress-bar::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+  }
+  
+  /* Volume Control */
+  .volume-container {
+    position: absolute;
+    right: 4rem; /* Increased space from right edge */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    z-index: 2;
+}
+  
+  #volume-control {
+    width: 80px;
+    height: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: var(--background-light);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  #volume-control::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--primary-color);
+    border-radius: 50%;
+  }
+  
+  #volume-control::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+  }
+  
+  /* Fullscreen Mode */
+  .player.fullscreen-active {
+    height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fullscreen-active .player-info {
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .fullscreen-active .player-info img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 1rem;
+  }
+  
+
+  
+  .fullscreen-active .controls button {
+    font-size: 2rem;
+  }
+
+  .fullscreen-active #play-pause-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .fullscreen-active #prev-btn,
+.fullscreen-active #next-btn {
+  font-size: 1.8rem;
+}
+
+.fullscreen-active #repeat-btn,
+.fullscreen-active #playlist-btn {
+  font-size: 1.6rem;
+}
+  
+    .player.fullscreen-active .volume-container {
+        position: static;
+        margin-top: 2rem;
+        padding: 1rem;
+        width: auto;
+    }
+  
+  
+  /* Add margin to main content to prevent player overlap */
+  body {
+    margin-bottom: calc(var(--player-height) + 1rem);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .player {
+      height: var(--player-mobile-height);
+      padding: 0.5rem 1rem;
+    }
+  
+    .player-info img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .controls {
+        gap: 1.5rem; /* Slightly reduced gap for mobile */
+      }
+
+    .controls button {
+      font-size: 1rem;
+      padding: 0.25rem;
+    }
+    #play-pause-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+      }
+  
+    /* Hide progress and volume controls on mobile */
+    .progress-container,
+    .volume-container {
+      display: none;
+    }
+  
+    body {
+      margin-bottom: calc(var(--player-mobile-height) + 1rem);
+    }
+  
+    /* Show controls in fullscreen mode */
+    .player.fullscreen-active {
+      height: 100vh;
+      padding: 1rem;
+    }
+  
+    .player.fullscreen-active .progress-container{
+      display: flex;
+    }
+
+    .player.fullscreen-active .volume-container{
+        position: static;
+        display: flex;
+        transform: none;
+        right: auto;
+        margin-top: 1rem;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .player.fullscreen-active #volume-control {
+        width: 120px; /* Make volume slider wider in fullscreen mobile */
+      }
+
+    .player.fullscreen-active .player-info img {
+      width: 150px;
+      height: 150px;
+    }
+
+  
+    .player.fullscreen-active .controls button {
+      font-size: 1.5rem;
+    }
+  }
+  .player.fullscreen-active #play-pause-btn {
+    width: 55px;
+    height: 55px;
+    font-size: 1.8rem;
+  }
+  
+  
+  /* General Utility Classes */
+  .hidden {
+    display: none;
+  }
