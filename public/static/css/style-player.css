@@ -6,19 +6,23 @@
     --background-light: rgba(255, 255, 255, 0.1);
     --transition-speed: 0.3s;
     --player-height: 100px;
-    --player-mobile-height: 80px;
+    --player-mobile-height: 90px;
+    --visualizer-color-1: #1db954;
+    --visualizer-color-2: #00bfff;
   }
   
   .player {
     position: fixed;
     bottom: 0;
-    left: 0;
+    left: -1vh;
     right: 0;
     width: 100%;
     height: var(--player-height);
     margin: 0;
     padding: 0.5rem 2rem;
     background: var(--background-dark);
+    background-size: cover;
+    background-position: center;
     color: var(--text-color);
     transition: all var(--transition-speed);
     overflow: hidden;
@@ -47,6 +51,26 @@
     z-index: -1;
   }
   
+  .visualizer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 125%;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.fullscreen-active .visualizer {
+    height: 100vh;
+    opacity: 0.8;
+}
+
+  .fullscreen-active.player {
+      padding-top: 300px;
+  }
+
   /* Player Info Section */
   .player-info {
     display: flex;
@@ -78,7 +102,7 @@
     margin: 0;
     font-size: 0.9rem;
     white-space: nowrap;
-    overflow: hidden;
+    overflow:hidden;
     position: relative;
     padding-right: 20px;
   }
@@ -240,7 +264,12 @@
     text-align: center;
     margin-bottom: 2rem;
   }
+
+  .fullscreen-active .player-info h3{
+    font-size: 20px;
+  }
   
+
   .fullscreen-active .player-info img {
     width: 200px;
     height: 200px;
@@ -288,10 +317,42 @@
       height: var(--player-mobile-height);
       padding: 0.5rem 1rem;
     }
+
+
+    .fullscreen-active.player {
+        padding-top: 300px;
+    }
   
     .player-info img {
       width: 40px;
       height: 40px;
+    }
+
+    .player-info p {
+      text-align: center;
+      font-size: 15px;
+      white-space: nowrap; /* add this to prevent text wrapping */
+      overflow: hidden; /* add this to hide excess text */
+      animation: slide-right 10s infinite;
+      width: 100%; /* add this to make the text scroll through the full width */
+      text-overflow: ellipsis; /* add this to make the text scroll smoothly */ /* add animation */
+    }
+
+    .fullscreen-active .player-info p {
+      text-align: center;
+      font-size: 15px;
+      white-space: nowrap; /* add this to prevent text wrapping */
+      overflow: hidden; /* add this to hide excess text */
+      animation: slide-right 10s infinite; /* add animation */
+    }
+    
+    @keyframes slide-right {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(0);
+      }
     }
 
     .controls {
@@ -323,6 +384,11 @@
       height: 100vh;
       padding: 1rem;
     }
+
+    .fullscreen-active .visualizer {
+      height: 115vh;
+      opacity: 0.4;
+  }
   
     .player.fullscreen-active .progress-container{
       display: flex;

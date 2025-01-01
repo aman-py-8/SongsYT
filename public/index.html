@@ -4,7 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SongsYT | Music Player</title>
-    <meta name="description" content="Enjoy Music, have fun.">
+    <meta property="og:title" content="SongsYT">
+    <meta name="description" content="Enjoy Ad-free Music, have fun. Made with ❤️ by Aman.">
+    <meta property="og:image" content="https://songsyt.web.app/static/icons/meta.png">
+    <meta property="og:url" content="https://songsyt.web.app/">
+    <meta property="og:type" content="website">
+    
+    <style>
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        #loader img {
+        max-width: 200px; /* Maximum size */
+        width: 80%; /* Responsive width */
+        height: auto;
+        max-height: 40vh; /* Maximum height relative to viewport */
+        object-fit: contain; /* Maintain aspect ratio */
+    }
+        #loader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #playlist-container:empty ~ #loader {
+            display: flex !important;
+            opacity: 1 !important;
+        }
+
+        #app {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        #app.visible {
+            opacity: 1;
+        }
+
+        .meteor-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes meteorAnimation {
+            0% {
+                transform: rotate(215deg) translateX(0);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(215deg) translateX(-500px);
+                opacity: 0;
+            }
+        }
+
+        .meteor::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, #64748b, transparent);
+        }
+
+        .meteor {
+            position: absolute;
+            height: 1px;
+            width: 1px;
+            border-radius: 9999px;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+            rotate: 15deg;
+            animation: meteorAnimation 3s linear infinite;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        #app {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+    
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="static/css/style-player.css">
     <link rel="stylesheet" href="static/css/style-search.css">
@@ -12,14 +112,48 @@
     <link rel="icon" href="favicon.png" type="image/x-icon">
 </head>
 <body>
+    <div id="loader">
+        <img src="static/icons/ig2.gif" alt="Loading...">
+    </div>
+    <div class="loader"></div>
     <div id="app">
         <header-component></header-component>
         <search-component></search-component>
-
         <div id="playlist-container"></div>
         <div id="song-container"></div>
         <player-component></player-component>
     </div>
+
+    <div class="meteor-container">
+        <span class="meteor" style="top:10vh;left:90px;animation-delay:0.79s"></span>
+        <span class="meteor" style="top:20vh;left:252px;animation-delay:0.69s"></span>
+        <span class="meteor" style="top:30vh;left:-217px;animation-delay:0.64s;animation-duration:4s"></span>
+        <span class="meteor" style="top:40vh;left:-213px;animation-delay:0.48s;animation-duration:5s"></span>
+        <span class="meteor" style="top:50vh;left:-366px;animation-delay:0.40s;animation-duration:8s"></span>
+        <span class="meteor" style="top:60vh;left:-329px;animation-delay:0.75s"></span>
+        <span class="meteor" style="top:70vh;left:109px;animation-delay:0.62s"></span>
+        <span class="meteor" style="top:80vh;left:341px;animation-delay:0.46s;animation-duration:5s"></span>
+        <span class="meteor" style="top:90vh;left:-256px;animation-delay:0.77s;animation-duration:7s"></span>
+        <span class="meteor" style="top:95vh;left:-60px;animation-delay:0.67s;animation-duration:7s"></span>
+    </div>
+
+    <script>
+        const checkPlaylist = () => {
+            const loader = document.getElementById('loader');
+            const app = document.getElementById('app');
+            const playlist = document.getElementById('playlist-container');
+            
+            if (playlist.children.length > 0) {
+                loader.classList.add('fade-out');
+                app.classList.add('visible');
+            } else {
+                setTimeout(checkPlaylist, 100);
+            }
+        };
+
+        window.addEventListener('load', checkPlaylist);
+    </script>
+
     <script src="header.js" type="module"></script>
     <script src="search.js" type="module"></script>
     <script src="player.js" type="module"></script>

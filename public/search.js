@@ -1,11 +1,56 @@
 import { fetchSongs } from './api.js';
 
 export default class SearchComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.cache = new Map();
+    }
+
     async connectedCallback() {
-        // Load the loader component
-        const loaderResponse = await fetch('loader.html');
-        const loaderHtml = await loaderResponse.text();
-        
+        // Create loader HTML directly instead of fetching
+        const loaderHtml = `
+            <style>
+                .loader {
+                    border: 4px solid #f3f3f3;
+                    border-top: 4px solid #6200ea;
+                    border-radius: 50%;
+                    width: clamp(20px, 8vw, 40px);
+                    height: clamp(20px, 8vw, 40px);
+                    animation: spin 1s linear infinite;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    display: none;
+                    z-index: 1001;
+                }
+
+                @keyframes spin {
+                    0% { transform: translate(-50%, -50%) rotate(0deg); }
+                    100% { transform: translate(-50%, -50%) rotate(360deg); }
+                }
+
+                .loading {
+                    display: block;
+                }
+
+                @media (max-width: 768px) {
+                    .loader {
+                        width: clamp(20px, 6vw, 35px);
+                        height: clamp(20px, 6vw, 35px);
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .loader {
+                        width: clamp(20px, 5vw, 30px);
+                        height: clamp(20px, 5vw, 30px);
+                    }
+                }
+            </style>
+            <div class="loader"></div>
+        `;
+
         this.innerHTML = `
             <div class="search-bar">
                 <div class="search-input-container">
@@ -28,8 +73,13 @@ export default class SearchComponent extends HTMLElement {
         const resultsDiv = this.querySelector('#search-results');
         const loader = this.querySelector('.loader');
 
-        const toggleLoader = (show) => {
-            loader.classList.toggle('loading', show);
+        // Make toggleLoader a class method so it's accessible everywhere
+        this.toggleLoader = (show) => {
+            if (show) {
+                loader.classList.add('loading');
+            } else {
+                loader.classList.remove('loading');
+            }
         };
 
         // Fetch suggestions on input
@@ -42,9 +92,9 @@ export default class SearchComponent extends HTMLElement {
                 return;
             }
 
-            toggleLoader(true);
-            const suggestions = await this.fetchSuggestions(query);
-            toggleLoader(false);
+            this.toggleLoader(true);
+            const suggestions = await this.getCachedSuggestions(query);
+            this.toggleLoader(false);
 
             this.displaySuggestions(suggestions, searchInput, suggestionsList);
 
@@ -68,9 +118,9 @@ export default class SearchComponent extends HTMLElement {
             }
 
             suggestionsList.style.display = 'none';
-            toggleLoader(true);
-            const results = await fetchSongs(query);
-            toggleLoader(false);
+            this.toggleLoader(true);
+            const results = await this.getCachedResults(query);
+            this.toggleLoader(false);
 
             this.displayResults(results, resultsDiv);
         });
@@ -80,6 +130,27 @@ export default class SearchComponent extends HTMLElement {
                 suggestionsList.style.display = 'none';
             }
         });
+    }
+
+    // Rest of the methods remain the same
+    async getCachedSuggestions(query) {
+        if (this.cache.has(`suggestions-${query}`)) {
+            return this.cache.get(`suggestions-${query}`);
+        }
+
+        const suggestions = await this.fetchSuggestions(query);
+        this.cache.set(`suggestions-${query}`, suggestions);
+        return suggestions;
+    }
+
+    async getCachedResults(query) {
+        if (this.cache.has(`results-${query}`)) {
+            return this.cache.get(`results-${query}`);
+        }
+
+        const results = await fetchSongs(query);
+        this.cache.set(`results-${query}`, results);
+        return results;
     }
 
     async fetchSuggestions(query) {
@@ -108,8 +179,10 @@ export default class SearchComponent extends HTMLElement {
             li.textContent = suggestion;
             li.addEventListener('click', async () => {
                 searchInput.value = suggestion;
-                const results = await fetchSongs(suggestion);
-                this.displayResults(results, document.querySelector('#search-results'));
+                this.toggleLoader(true); // Using class method
+                const results = await this.getCachedResults(suggestion);
+                this.toggleLoader(false); // Using class method
+                this.displayResults(results, this.querySelector('#search-results'));
                 suggestionsList.style.display = 'none';
             });
             suggestionsList.appendChild(li);
