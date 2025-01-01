@@ -288,3 +288,23 @@ body {
         padding: 30px; /* Extra padding for larger screens */
     }
 }
+@media screen and (max-width: 768px) {
+    #playlist-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(10px, 3vw, 20px);
+        padding: clamp(10px, 3vw, 20px);
+        margin-top: 20px;
+    }
+    
+    .playlist-card {
+        width: 18vh;
+        cursor: pointer;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        background-color: #2d2d2d00;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  }
